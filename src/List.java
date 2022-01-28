@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Collections;
 
-public class List {
+public class List implements Comparable<List> {
     Scanner keyboard = new Scanner(System.in);
 
     private static int nextId = 0;
@@ -14,6 +15,14 @@ public class List {
         this.setId(++this.nextId);
         this.setName(name);
         this.setCategory(category);
+    }
+
+    public int compareTo(List otherList) {
+        if (this.id < otherList.id)
+            return -1;
+        if (this.id > otherList.id)
+            return 1;
+        return 0;
     }
 
     private void setId(int id) {
@@ -95,6 +104,14 @@ public class List {
         System.out.println("\nItem removida.");
     }
 
+    public void transferListItem() {
+        System.out.println("\n=*=*=*= Items =*=*=*=");
+        System.out.println(this.toString());
+
+        System.out.println("\nId do item da lista que deseja transferir: ");
+        int transferId = keyboard.nextInt();
+    }
+
     public void removeCategory() {
         this.setCategory(null);
     }
@@ -104,8 +121,10 @@ public class List {
     }
 
     public String toString() {
-        if (items.size() == 0)
+        if (this.items.size() == 0)
             return "\nNão há itens cadastrados.\n";
+
+        Collections.sort(this.items);
 
         String list = "";
 
