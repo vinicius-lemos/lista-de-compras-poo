@@ -1,5 +1,7 @@
-public class ListItem implements Comparable<ListItem> {
-    private static int nextId = 0;
+import java.io.Serializable;
+
+public class ListItem implements Comparable<ListItem>, Serializable {
+    public static int nextId = 0;
     private int id;
     private String name;
     private double amount;
@@ -62,6 +64,6 @@ public class ListItem implements Comparable<ListItem> {
     public String toString() {
         String formattedUnit = UnitOfMeasurement.format(this.getUnit());
 
-        return this.getName() + " - " + this.getAmount() + " " + formattedUnit;
+        return this.getId() + " - " + this.getName() + " - " + this.getAmount() + " " + formattedUnit;
     }
 }

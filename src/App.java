@@ -60,7 +60,7 @@ public class App {
                     System.out.println("\nAté a próxima :)\n");
                     break;
                 default:
-                    System.out.print("\nPor favor, selecione um número de 1-5.\n");
+                    System.out.print("\nPor favor, selecione um número de 1-6.\n");
             }
         } while (choice != 6);
 

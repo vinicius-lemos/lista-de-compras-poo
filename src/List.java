@@ -1,11 +1,12 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Collections;
 
-public class List implements Comparable<List> {
-    Scanner keyboard = new Scanner(System.in);
+public class List implements Comparable<List>, Serializable {
+    transient Scanner keyboard = new Scanner(System.in);
 
-    private static int nextId = 0;
+    public static int nextId = 0;
     private int id = 0;
     private String name;
     private Category category;
@@ -41,6 +42,10 @@ public class List implements Comparable<List> {
         return this.name;
     }
 
+    public ArrayList<ListItem> getItems() {
+        return this.items;
+    }
+
     public void setCategory(Category category) {
         this.category = category;
     }
@@ -49,7 +54,7 @@ public class List implements Comparable<List> {
         return this.category;
     }
 
-    private ListItem getListItem(int id) {
+    public ListItem getListItem(int id) {
         for (ListItem item : items)
             if (item.getId() == id)
                 return item;
@@ -61,37 +66,6 @@ public class List implements Comparable<List> {
         this.items.add(item);
     }
 
-    public void editListItemById(int id) {
-        ListItem item = this.getListItem(id);
-
-        if (item == null) {
-            System.out.println("\nItem não existente.");
-            return;
-        }
-
-        System.out.println("\nDeseja modificar o nome " + item.getName() + "?");
-        System.out.println("1. Sim");
-        System.out.println("2. Não");
-        int choice = keyboard.nextInt();
-
-        if (choice == '1') {
-            System.out.println("\nNovo nome do item: ");
-            item.setName(keyboard.next());
-        }
-
-        System.out.println("\nDeseja modificar a quantidade " + item.getAmount() + "?");
-        System.out.println("1. Sim");
-        System.out.println("2. Não");
-        choice = keyboard.nextInt();
-
-        if (choice == '1') {
-            System.out.println("Quantidade do item: ");
-            item.setAmount(keyboard.nextDouble());
-        }
-
-        System.out.println("\nItem editado com sucesso!");
-    }
-
     public void removeListItemById(int id) {
         ListItem deletedItem = this.getListItem(id);
 
@@ -101,15 +75,7 @@ public class List implements Comparable<List> {
         }
 
         items.remove(deletedItem);
-        System.out.println("\nItem removida.");
-    }
-
-    public void transferListItem() {
-        System.out.println("\n=*=*=*= Items =*=*=*=");
-        System.out.println(this.toString());
-
-        System.out.println("\nId do item da lista que deseja transferir: ");
-        int transferId = keyboard.nextInt();
+        System.out.println("\nItem removido.");
     }
 
     public void removeCategory() {
