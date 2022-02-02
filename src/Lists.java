@@ -234,7 +234,7 @@ public class Lists {
                 case 6:
                     list.removeCategory();
 
-                    System.out.println("\nCategoria removida!");
+                    System.out.println("\nCategoria removida.");
 
                     this.writeList();
 
@@ -287,10 +287,14 @@ public class Lists {
                 try {
                     tempList = (List) listStream.readObject();
 
-                    List.nextId++;
+                    tempList.nextId = tempList.getId();
 
-                    for (ListItem item : tempList.getItems())
-                        item.nextId++;
+                    int amountListItem = tempList.getItems().size();
+                    int indexItem = (amountListItem - 1) == -1 ? 0 : amountListItem - 1;
+                    if (amountListItem > 0) {
+                        int idItem = tempList.getItems().get(indexItem).getId();
+                        ListItem.nextId = idItem;
+                    }
 
                     this.lists.add(tempList);
                 } catch (EOFException e) {
